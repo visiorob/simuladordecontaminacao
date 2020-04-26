@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 public class Person : MonoBehaviour
 {
     private CircleCollider2D playerCollider;
@@ -25,6 +26,7 @@ public class Person : MonoBehaviour
     private bool fist;
     [SerializeField]
     private bool movable;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -67,6 +69,7 @@ public class Person : MonoBehaviour
         }
         gameObject.GetComponent<CircleCollider2D>().enabled = true;
     }
+    
     // Update is called once per frame
     void Update()
     {
@@ -83,12 +86,13 @@ public class Person : MonoBehaviour
             }
         }
     }
+
     void GetSick()
     {
         float myInfectionChance = Random.Range(0f, 1f);
         if (isHeath)
         {
-            if (settingsScript.chanceToGetSick > myInfectionChance)
+            if ((settingsScript.chanceToGetSick > myInfectionChance) || fist)
             {
                 settingsScript.sickPeople++;
                 settingsScript.healthPeople--;
@@ -99,6 +103,7 @@ public class Person : MonoBehaviour
             }
         }
     }
+
     void GetBetter()
     {
         if (isSick)
@@ -111,6 +116,7 @@ public class Person : MonoBehaviour
             color.color = new Color32(248, 141, 210, 255);
         }
     }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Player")
